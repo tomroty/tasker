@@ -10,37 +10,32 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: ProjectRepository::class)]
 class Project
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Id, ORM\Column, ORM\GeneratedValue]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
     private ?string $name = null;
 
-    #[ORM\Column(length: 5)]
+    #[Assert\Length(min: 2, max: 10)]
+    #[Assert\NotBlank]
+    #[ORM\Column(name: '`key_code`', length: 10, unique: true)]
     private ?string $keyCode = null;
+
+    #[ORM\OneToMany(mappedBy: 'project', targetEntity: Issue::class, orphanRemoval: true)]
+    private Collection $issues;
 
     #[ORM\ManyToOne(inversedBy: 'leadedProjects')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $leadUser = null;
 
-    /**
-     * @var Collection<int, User>
-     */
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'projects')]
-    private Collection $members;
-
-    /**
-     * @var Collection<int, Issue>
-     */
-    #[ORM\OneToMany(targetEntity: Issue::class, mappedBy: 'project')]
-    private Collection $issues;
+    private Collection $people;
 
     public function __construct()
     {
-        $this->members = new ArrayCollection();
         $this->issues = new ArrayCollection();
+        $this->people = new ArrayCollection();
     }
 
     public function getId(): ?int
