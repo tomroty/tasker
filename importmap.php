@@ -25,4 +25,8 @@ return [
     '@hotwired/stimulus' => [
         'version' => '3.2.2',
     ],
+    'bootstrap/dist/css/bootstrap.min.css' => [
+        'version' => '5.3.5',
+        'type' => 'css',
+    ],
 ];
