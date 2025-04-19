@@ -17,11 +17,18 @@ security:
             form_login:
                 check_path: login_index
                 login_path: login_index
+            
+            logout:
+                target: login_index
+
             lazy: true
 
             provider: app_user_provider
 
     access_control:
+        - { path: ^/login, roles: PUBLIC_ACCESS }
+        - { path: ^/register, roles: PUBLIC_ACCESS }
+        - { path: ^/, roles: ROLE_USER }
 
 
 
