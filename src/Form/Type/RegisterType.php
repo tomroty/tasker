@@ -46,7 +46,6 @@ class RegisterType extends AbstractType
                 'attr' => [
                     'class' => 'btn btn-lg btn-primary w-100',
                 ],
-                'label' => 'Register',
             ])
         ;
     }

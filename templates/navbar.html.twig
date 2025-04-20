@@ -30,7 +30,11 @@
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#">Action</a></li>
             <li><hr class="dropdown-divider" /></li>
-            <li><a class="dropdown-item" href="{{ path('project_list')}} ">See all projects</a></li>
+            <li>
+              <a class="dropdown-item" href="{{ path('project_list') }} "
+                >See all projects</a
+              >
+            </li>
             <li>
               <a
                 class="dropdown-item"
@@ -43,7 +47,13 @@
           </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+          <a
+            class="nav-link"
+            data-bs-target="#modalCreateIssue"
+            data-bs-toggle="modal"
+            href="#"
+            >Créer</a
+          >
         </li>
       </ul>
       <form class="d-flex" role="search">

@@ -37,6 +37,16 @@ class ProjectService
 
     public function remove(Project $project): void
     {
+  
+        $users = $this->entityManager->getRepository(\App\Entity\User::class)
+            ->findBy(['selectedProject' => $project]);
+        
+
+        foreach ($users as $user) {
+            $user->setSelectedProject(null);
+        }
+        
+
         $this->entityManager->remove($project);
         $this->entityManager->flush();
     }

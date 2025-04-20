@@ -35,24 +35,26 @@ class ProjectForm extends AbstractController
 
         return $this->createForm(ProjectType::class, $this->initialFormData);
     }
-
     #[LiveAction]
     public function save(EntityManagerInterface $em): Response
     {
         $this->validate();
         $this->submitForm();
-        
+    
         $project = $this->getForm()->getData();
-        $user = $this->getUser();
-        
-        $project->setLeadUser($user);
-        $project->addMember($user);
-        
+    
         $em->persist($project);
+
+        $user = $this->getUser();
+    
+        $user->addProject($project);
+        $user->setSelectedProject($project);
+    
         $em->flush();
-        
+    
         return $this->redirectToRoute('project_show', [
-            'keyCode' => $project->getKeyCode(),
+            'keyCode' => $project->getKeyCode()
         ]);
     }
+    
 }

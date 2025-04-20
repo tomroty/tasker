@@ -26,10 +26,6 @@ class ProjectController extends AbstractController
     #[Route('/projects', name: 'project_list')]
     public function list(): Response
     {
-        dump($this->getUser());
-        dump($this->getUser()->getProjects());
-        dump($this->projectService->getProjectsList($this->getUser()));
-
         return $this->render('project/list.html.twig', [
             'projects' => $this->projectService->getProjectsList($this->getUser())
         ]);
