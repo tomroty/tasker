@@ -30,12 +30,12 @@ class Project
     private ?User $leadUser = null;
 
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'projects')]
-    private Collection $people;
+    private Collection $members;
 
     public function __construct()
     {
         $this->issues = new ArrayCollection();
-        $this->people = new ArrayCollection();
+        $this->members = new ArrayCollection();
     }
 
     public function getId(): ?int

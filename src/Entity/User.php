@@ -50,6 +50,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\ManyToMany(targetEntity: Project::class, mappedBy: 'members')]
     private Collection $projects;
+    
 
     /**
      * @var Collection<int, Issue>
@@ -65,6 +66,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\ManyToOne]
     private ?Project $selectedProject = null;
+    
 
     public function __construct()
     {

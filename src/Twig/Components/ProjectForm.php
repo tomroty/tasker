@@ -40,16 +40,17 @@ class ProjectForm extends AbstractController
     public function save(EntityManagerInterface $em): Response
     {
         $this->validate();
-
         $this->submitForm();
-
+        
         $project = $this->getForm()->getData();
-
-        $project->setLeadUser($this->getUser());
-
+        $user = $this->getUser();
+        
+        $project->setLeadUser($user);
+        $project->addMember($user);
+        
         $em->persist($project);
         $em->flush();
-
+        
         return $this->redirectToRoute('project_show', [
             'keyCode' => $project->getKeyCode(),
         ]);
