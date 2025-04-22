@@ -1,14 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ project.name }}{% endblock %}
+{% block title %}Profil{% endblock %}
 
 {% block body %}
     <div class="container mt-3">
         <div class="row">
             <div class="col">
-                {{ component('ProjectBoard') }}
+                {{ component('ProfileForm', {
+                    'user': user
+                }) }}
             </div>
         </div>
     </div>
 {% endblock %}
-

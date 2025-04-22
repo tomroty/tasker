@@ -1,0 +1,36 @@
+<div {{ attributes.defaults(stimulus_controller('ProjectBoardController')) }} class="row" data-poll="delay(500)|getIssues">
+    <div class="col-md-4 col-sm-12">
+        {{ _self.card('Ready', '2', readyIssues) }}
+    </div>
+    <div class="col-md-4 col-sm-12">
+        {{ _self.card('In Development', '3', inProgressIssues) }}
+    </div>
+    <div class="col-md-4 col-sm-12">
+        {{ _self.card('Resolved', '5', resolvedIssues) }}
+    </div>
+</div>
+
+{% macro card(title, statusId, issues) %}
+    <div class="card">
+        <div class="card-header fw-bold text-center text-uppercase">{{ title }}</div>
+        <div class="card-body">
+            <div class="list-group issue-container pb-4" data-status="{{ statusId }}">
+                {% for issue in issues %}
+                    <div class="list-group-item list-group-item-action issue-item"
+                         id="{{ issue.id }}"
+                         role="button"
+                         draggable="true">
+                        <a class="fw-bold text-decoration-none"
+                           href="{{ path('issue_show', { 'id': issue.id }) }}">
+                            {{ issue.keyCode }}
+                        </a>
+                        <br>
+                        <span class="small">{{ issue.summary }}</span>
+                    </div>
+
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+{% endmacro %}
