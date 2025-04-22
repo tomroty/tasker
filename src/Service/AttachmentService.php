@@ -45,4 +45,18 @@ class AttachmentService
     {
         return uniqid(more_entropy: true) . '.' . $uploadedFile->guessExtension();
     }
+
+    public function delete(Attachment $attachment): void
+    {
+        $filename = $this->attachmentsDir
+            . DIRECTORY_SEPARATOR
+            . pathinfo($attachment->getPath(), PATHINFO_FILENAME)
+            . '.'
+            . pathinfo($attachment->getPath(), PATHINFO_EXTENSION);
+
+        if (file_exists($filename)) {
+            unlink($filename);
+        }
+    }
+
 }

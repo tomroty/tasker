@@ -68,17 +68,30 @@
                 <div class="flex-row flex-nowrap mb-3 row">
                     {% for attachment in attachments %}
                         <div class="col-sm-4">
-                            <a href="{{ asset(attachment.path) }}" target="_blank">
-                                <div class="card h-100">
+
+                            <div class="card h-100">
+                                <a href="{{ asset(attachment.path) }}" target="_blank">
                                     <div class="card-body">
                                         <small>{{ attachment.originalName }}</small>
                                     </div>
+                                </a>
+                                <div class="card-footer">
+                                    <button class="btn btn-sm btn-danger"
+                                            type="button"
+                                            data-action="live#action"
+                                            data-live-action-param="deleteAttachment"
+                                            data-live-id-param="{{ attachment.id }}"
+                                    >
+                                        Delete
+                                    </button>
                                 </div>
-                            </a>
+                            </div>
+
                         </div>
                     {% endfor %}
                 </div>
             </div>
+
 
 
 

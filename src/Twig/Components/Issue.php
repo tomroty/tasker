@@ -6,6 +6,7 @@ use App\Repository\AttachmentRepository;
 use App\Service\AttachmentService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
+use Symfony\UX\LiveComponent\Attribute\LiveArg;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\ComponentToolsTrait;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
@@ -74,4 +75,24 @@ class Issue
             $this->attachments[] = $attachment;
         }
     }
+
+    #[LiveAction]
+    public function deleteAttachment(#[LiveArg] int $id): void
+    {
+        $attachmentToDelete = null;
+        $updatedAttachments = [];
+
+        foreach ($this->attachments as $attachment) {
+            if ($attachment->getId() === $id) {
+                $attachmentToDelete = $attachment;
+            } else {
+                $updatedAttachments[] = $attachment;
+            }
+        }
+
+        $this->attachments = $updatedAttachments;
+        $this->issue->removeAttachment($attachmentToDelete);
+        $this->em->flush();
+    }
+
 }
