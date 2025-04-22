@@ -25,15 +25,16 @@
             Projects
           </a>
           <ul class="dropdown-menu">
+            {% if app.user.selectedProject is not null %}
             <li>
               <a class="dropdown-item" href="{{ path('project_show', { 'keyCode': app.user.selectedProject.keyCode }) }}">
                 {{ app.user.selectedProject }}
               </a>
             </li>
-
             <li><hr class="dropdown-divider" /></li>
+            {% endif %}
             <li>
-              <a class="dropdown-item" href="{{ path('project_list') }} "
+              <a class="dropdown-item" href="{{ path('project_list') }}"
                 >See all projects</a
               >
             </li>
