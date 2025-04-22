@@ -2,7 +2,7 @@
 
 namespace App\Twig\Components;
 
-use App\Enum\IssueType;
+use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
@@ -19,22 +19,18 @@ class SelectIssueAssignee
     #[LiveProp]
     public \App\Entity\Issue $issue;
 
-    /** @var IssueType[] */
+    /** @var User[] */
     #[LiveProp]
-    public array $types = [];
+    public array $people = [];
 
     #[LiveProp(writable: true)]
-    public IssueType $type;
+    public ?User $assignee = null;
 
     #[LiveAction]
-    public function updateType(EntityManagerInterface $em): void
+    public function updateAssignee(EntityManagerInterface $em): void
     {
         $this->validate();
-
-
-        $this->issue->setType($this->type);
-
+        $this->issue->setAssignee($this->assignee);
         $em->flush();
     }
-
 }

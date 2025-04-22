@@ -3,16 +3,84 @@
 {% block title %}{{ issue.keyCode }}{% endblock %}
 
 {% block body %}
-<div class="container mt-3">
-    <div class="row">
-        <div class="col-md-8 col-sm-12">
-            {{ component('Issue', {
-                attachments: issue.attachments.toArray(),
-                issue: issue
-            }) }}
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-md-8 col-sm-12">
+                {{ component('Issue', {
+                    'attachments': issue.attachments.toArray,
+                    'issue': issue
+                }) }}
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        {{ component('SelectIssueType', {
+                            'issue': issue,
+                            'type': issue.type,
+                            'types': types
+                        }) }}
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        {{ component('SelectIssueStatus', {
+                            'issue': issue,
+                            'status': issue.status,
+                            'statuses': statuses
+                        }) }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-header">Details</div>
+                            <div class="card-body">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="align-middle">
+                                    <tr>
+                                        <td class="fw-bold">
+                                            <small>Assignee</small>
+                                        </td>
+                                        <td>
+                                            {{ component('SelectIssueAssignee', {
+                                                'issue': issue,
+                                                'people': issue.project.members.toArray,
+                                                'assignee': issue.assignee
+                                            }) }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold"><small>Estimated number of days</small></td>
+                                        <td>
+                                            {{ component('InputStoryPointEstimate', {
+                                                'issue': issue
+                                            }) }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold"><small>Reporter</small></td>
+                                        <td>
+                                            {{ component('SelectIssueReporter', {
+                                                'issue': issue,
+                                                'people': issue.project.members.toArray,
+                                                'reporter': issue.reporter
+                                            }) }}
+                                        </td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
-        <div class="col-md-4 col-sm-12">
-        </div>
-    </div>
-</div>
 {% endblock %}
+

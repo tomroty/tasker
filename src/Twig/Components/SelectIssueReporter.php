@@ -24,13 +24,13 @@ class SelectIssueReporter
     public array $people = [];
 
     #[LiveProp(writable: true)]
-    public ?User $assignee = null;
+    public ?User $reporter = null;
 
     #[LiveAction]
-    public function updateAssignee(EntityManagerInterface $em): void
+    public function updateReporter(EntityManagerInterface $em): void
     {
         $this->validate();
-        $this->issue->setAssignee($this->assignee);
+        $this->issue->setReporter($this->reporter);
         $em->flush();
     }
 }
